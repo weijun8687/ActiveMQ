@@ -14,7 +14,5 @@ public class TestProduct extends BaseJunit4Test{
             Thread.sleep(3000);
             product.sendMessage("hahaha");
         }
-
     }
-
 }

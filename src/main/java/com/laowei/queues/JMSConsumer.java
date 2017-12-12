@@ -19,12 +19,23 @@ public class JMSConsumer {
         ConnectionFactory factory = new ActiveMQConnectionFactory(username, password, url);
         try {
             Connection connection = factory.createConnection();
+
+            // 持久订阅模式时 设置ClientID (相当于身份标识)
+            connection.setClientID("aaa");
+
             connection.start();
             Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-
+            // 点对点模式
 //            Destination destination = session.createQueue("test1");
-            Destination destination = session.createTopic("test1");
-            MessageConsumer consumer = session.createConsumer(destination);
+
+            //订阅模式
+//            Destination destination = session.createTopic("test1");
+//            MessageConsumer consumer = session.createConsumer(destination);
+
+            // 持久订阅模式
+            Topic topic = session.createTopic("test1");
+            // 创建有身份标识的消费者
+            MessageConsumer consumer = session.createDurableSubscriber(topic, "aaa");
             while (true){
                 TextMessage message = (TextMessage) consumer.receive();
                 if (message!=null){
@@ -33,10 +44,8 @@ public class JMSConsumer {
                     break;
                 }
             }
-
             session.close();
             connection.close();
-
 
         } catch (JMSException e) {
             e.printStackTrace();

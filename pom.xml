@@ -16,7 +16,6 @@
     </properties>
 
     <dependencies>
-
         <!-- spring核心配置-->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -37,7 +36,6 @@
             <version>${junit.version}</version>
         </dependency>
 
-
         <dependency>
             <groupId>org.apache.activemq</groupId>
             <artifactId>activemq-all</artifactId>
@@ -57,7 +55,5 @@
         </dependency>
 
     </dependencies>
-
-
 
 </project>

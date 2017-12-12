@@ -19,12 +19,19 @@ public class JMSConsumer2 {
         ConnectionFactory factory = new ActiveMQConnectionFactory(username, password, url);
         try {
             Connection connection = factory.createConnection();
+            // 持久化订阅时添加
+            connection.setClientID("bbb");
+
             connection.start();
             Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
 //            Destination destination = session.createQueue("test1");
-            Destination destination = session.createTopic("test1");
-            MessageConsumer consumer = session.createConsumer(destination);
+//            Destination destination = session.createTopic("test1");
+//            MessageConsumer consumer = session.createConsumer(destination);
+
+            // 持久化订阅时添加
+            Topic topic = session.createTopic("test1");
+            MessageConsumer consumer = session.createDurableSubscriber(topic, "bbb");
             while (true){
                 TextMessage message = (TextMessage) consumer.receive();
                 if (message!=null){
@@ -36,8 +43,6 @@ public class JMSConsumer2 {
 
             session.close();
             connection.close();
-
-
 
         } catch (JMSException e) {
             e.printStackTrace();

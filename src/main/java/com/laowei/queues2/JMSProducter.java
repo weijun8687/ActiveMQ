@@ -37,6 +37,7 @@ public class JMSProducter {
             // 消费生产者
             MessageProducer producer = session.createProducer(destination);
 
+            // 设置超时时间
             producer.setTimeToLive(10 * 1000);
 
             MapMessage message1 = session.createMapMessage();
@@ -47,8 +48,14 @@ public class JMSProducter {
             message2.setString("name", "xiaowang");
             message2.setIntProperty("age", 10);
 
-            producer.send(destination, message1, DeliveryMode.NON_PERSISTENT, 4,1000*60*10);
-            producer.send(destination, message2, DeliveryMode.NON_PERSISTENT, 4,1000*60*10);
+            /**
+             *message : 发送的消息
+             * DeliveryMode: 是否持久化
+             * priority优先级
+             * timeToLive 消息过期时间
+             */
+            producer.send(message1, DeliveryMode.NON_PERSISTENT, 4,1000*60*10);
+            producer.send(message2, DeliveryMode.NON_PERSISTENT, 4,1000*60*10);
 
             session.commit();
             session.close();

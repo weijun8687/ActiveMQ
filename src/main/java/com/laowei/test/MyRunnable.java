@@ -7,9 +7,6 @@ import java.util.concurrent.TimeUnit;
 // 使用该 Runnable , 必须先启动该线程
 public class MyRunnable implements Runnable {
 
-
-//    Date
-
     // 链表阻塞队列
     public static LinkedBlockingQueue<String> queue = new LinkedBlockingQueue<String>(1000);
 
@@ -40,9 +37,6 @@ public class MyRunnable implements Runnable {
 
     private  void dealMsg(String msg){
         try {
-
-            //http qingqiu
-
 
 
         }catch (Exception e ){
